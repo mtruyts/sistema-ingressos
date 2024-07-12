@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { EventsCoreModule} from '@app/core/events/events-core.module';
-import { EventsController } from './events.controller';
+import { EventosController } from './eventos.controller';
 //import { PrismaService } from 'src/prisma/prisma.service';
 
 @Module({
   imports: [EventsCoreModule],
-  controllers: [EventsController],
+  controllers: [EventosController],
 })
-export class EventsModule {}
+export class EventosModule {}

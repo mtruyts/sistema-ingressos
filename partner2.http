@@ -1,0 +1,61 @@
+GET http://localhost:3001/eventos
+
+###
+# @name criarEvento
+POST http://localhost:3001/eventos
+Content-Type: application/json
+
+{
+    "nome": "New Event",
+    "descricao": "This is a new event",
+    "data": "2017-01-01T00:00:00",
+    "preco": 100
+
+}
+
+###
+@eventoId = {{criarEvento.response.body.id}}
+
+###
+GET http://localhost:3001/eventos/{{eventoId}}
+
+
+###
+PATCH http://localhost:3001/eventos/{{eventoId}}
+Content-Type: application/json
+
+{
+    "nome": "New Event2",
+    "descricao": "This is a new event",
+    "data": "2017-01-01T00:00:00",
+    "preco": 100
+
+}
+
+###
+DELETE http://localhost:3001/eventos/{{eventoId}}
+
+###
+GET http://localhost:3001/eventos/{{eventoId}}/lugares
+###
+# @name criarLugar
+POST http://localhost:3001/eventos/{{eventoId}}/lugares
+Content-Type: application/json
+
+{
+    "nome": "A3"
+}
+
+###
+@lugarNome = {{ criarLugar.response.body.name }}
+
+###
+POST http://localhost:3001/eventos/{{eventoId}}/reservar
+Content-Type: application/json
+
+{
+    "lugares": ["{{ lugarNome }}"],
+    "tipo_ingresso": "inteira",
+    "email": "teste@teste.com"
+
+}
