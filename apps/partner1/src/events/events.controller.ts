@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Patch, Body, Param, Delete, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Body, Param, Delete, HttpCode, UseGuards } from '@nestjs/common';
 import { EventsService } from '@app/core/events/events.service';
 import { CreateEventRequest } from './request/create-event.request';
 import { UpdateEventRequest } from './request/update-event.request';
 import { ReserveSpotRequest } from './request/reserve-spot.request';
+import { AuthGuard } from '@app/core/auth/auth.guard';
 //import { UpdateEventDto } from './dto/update-event.dto';
 
 @Controller('events')
@@ -36,6 +37,7 @@ export class EventsController {
     return this.eventsService.remove(id);
   }
 
+  @UseGuards(AuthGuard)
   @Post(':id/reserve')
   reserveSpots(@Body() reserveRequest: ReserveSpotRequest, @Param('id') eventId: string) {
     return this.eventsService.reserveSpot({ ...reserveRequest, eventId });
